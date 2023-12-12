@@ -43,7 +43,8 @@ public class LoginTest {
         loginPage.login.sendKeys("lauraaqa");
         loginPage.password.sendKeys("p5Twdy789");
         loginPage.signInButton.click();
-        orderPageVisible.shouldBe(Condition.exist, visible);
+        OrderPage orderPage = loginPage.signInAndNavigateToOrder();
+        orderPage.orderButton.shouldBe(Condition.exist, visible);
     }
 
     @Test
