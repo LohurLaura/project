@@ -3,6 +3,7 @@ package pageobject;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ public class LoginTest {
     }
 
     @Test
-    public void incorrectCredentials() {
+    public void insertIncorrectCredentialsInLogin() {
         loginPage.login.sendKeys("login");
         loginPage.password.sendKeys("password");
         loginPage.signInButton.click();
@@ -38,15 +39,32 @@ public class LoginTest {
     }
 
     @Test
-    public void insertLoginAndLeavePasswordEmptyThenSignInButtonDisabled(){
+    public void insertCorrectDataAndCheckOrderPageDisplay() {
+        loginPage.login.sendKeys("lauraaqa");
+        loginPage.password.sendKeys("p5Twdy789");
+        loginPage.signInButton.click();
+        orderPageVisible.shouldBe(Condition.exist, visible);
+    }
+
+    @Test
+    public void insertLoginAndLeavePasswordEmptyThenSignInButtonDisabled() {
         loginPage.login.sendKeys("login");
         loginPage.signInButton.shouldBe(Condition.disabled);
     }
 
     @Test
-    public void insertPasswordAndLeaveLoginEmptyThenSignInButtonDisabled(){
+    public void insertIncorrectDataAndCheckButtonDisabledAndThenReLoginSuccessfully() {
         loginPage.password.sendKeys("password");
         loginPage.signInButton.shouldBe(Condition.disabled);
+        loginPage.login.sendKeys("lauraaqa");
+        loginPage.password.sendKeys("p5Twdy789");
+        loginPage.signInButton.click();
     }
 
+    @Test
+    public void insertAMinimumNumberOfTwoCharactersInLogin() {
+        loginPage.login.sendKeys("la");
+        loginPage.password.sendKeys("p5Twdy789");
+        loginPage.signInButton.click();
+    }
 }

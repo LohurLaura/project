@@ -10,6 +10,7 @@ public class LoginPage {
     public SelenideElement password =  $x("//*[@data-name='password-input']");
     public SelenideElement signInButton = $x("//*[@data-name='signIn-button']");
     public SelenideElement errorIncorrectCredentials =  $x("//*[@data-name='authorizationError-popup']");
+    public SelenideElement orderPageVisible = $x("//*[@data-name='new order']");
 
     public OrderPage signInAndNavigateToOrder(){
         signInButton.click();
